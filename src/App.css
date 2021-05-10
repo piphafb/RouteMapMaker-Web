@@ -28,6 +28,26 @@
   color: #61dafb;
 }
 
+.split{
+  display: table;
+  width: 100%;    
+}
+.split-left{
+  display: table-cell;
+  padding: 0px;
+  width: 20%;
+}
+.split-svg{
+  display: table-cell;
+  padding: 0px;
+  width: 60%;
+}
+.split-right{
+  display: table-cell;
+  padding: 0px;
+  width: 20%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

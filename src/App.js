@@ -1,24 +1,58 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import MenuIcon from '@material-ui/icons/Menu';
+import {routeMap} from './RouteMap.js'
+import PropPane from './PropPane.js';
+import SvgPane from './SvgPane.js';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 function App() {
+  const classes = useStyles();
+  const [state, setState] = useState(routeMap);
+
+  const updateView = (rMap) => {
+    setState(rMap);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <div>
+    <AppBar position="static">
+      <Toolbar variant="dense">
+        <IconButton edge="start" color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" color="inherit">
+          路線図メーカー
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    <div className="split">
+      <div className="split-left">
+        <Paper className={classes.paper}>Left</Paper>
+      </div>
+      <div className="split-svg">
+        <SvgPane routeMap={routeMap}  />
+      </div>
+      <div className="split-right">
+        <PropPane routeMap={routeMap} updateView={updateView.bind(this)}/>
+      </div>
     </div>
+   </div>
   );
 }
 
