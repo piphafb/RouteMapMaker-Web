@@ -36,16 +36,19 @@
   display: table-cell;
   padding: 0px;
   width: 20%;
+  vertical-align:top;
 }
 .split-svg{
   display: table-cell;
   padding: 0px;
   width: 60%;
+  vertical-align:top;
 }
 .split-right{
   display: table-cell;
   padding: 0px;
   width: 20%;
+  vertical-align:top;
 }
 
 @keyframes App-logo-spin {
