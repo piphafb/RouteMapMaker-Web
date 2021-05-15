@@ -1,62 +1,74 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button, RadioGroup, Radio, MenuItem, MenuList, TextField, FormControlLabel} from '@material-ui/core';
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import './StationPane.css';
 
 class StationPane extends React.Component {
     st_list = [];
     constructor(props) {
         super(props);
-        this.state = this.props.routeMap;
+        this.state = {routeMap: this.props.routeMap, selectedIndex: 0};
     }
 
     addStation = event => {
-        this.state.stations.splice(-1, 0, {name: "新駅"});
-        this.setState(this.state);
-        this.props.updateView(this.state);
+        this.state.routeMap.stations.splice(-1, 0, {name: "新駅"});
+        this.setState({routeMap: this.state.routeMap});
+        this.props.updateView(this.state.routeMap);
     };
 
-    removeStation = idx => {
-        this.state.stations.splice(idx,1);
-        this.setState(this.state);
-        this.props.updateView(this.state);
+    removeStation = event => {
+        this.state.routeMap.stations.splice(this.state.selectedIndex,1);
+        this.setState({routeMap: this.state.routeMap});
+        this.props.updateView(this.state.routeMap);
     };
 
     changeStaName = event => {
-        let idx = parseInt(event.target.id.slice(11));
-        this.state.stations[idx].name = event.target.value;
-        this.setState(this.state);
-        this.props.updateView(this.state);
+        let idx = this.state.selectedIndex
+        this.state.routeMap.stations[idx].name = event.target.value;
+        this.setState({routeMap: this.state.routeMap});
+        this.props.updateView(this.state.routeMap);
     };
 
-    handleChange = event => {
-
+    selectStation = idx => {
+        this.setState({selectedIndex: idx});
     }
 
+
     render() {
-        var stations = this.state.stations;
+        var stations = this.state.routeMap.stations;
         this.st_list.splice(0);
         for(let idx=0; idx<stations.length; idx++) {
-            this.st_list.push(<tr>
-                <td>    
-                    <TextField id={"stationName"+idx} label={"駅名"+(idx+1)} value={stations[idx].name} onChange={this.changeStaName}/>
-                </td>
-                <td>
-                <IconButton aria-label="delete" id={idx} onClick={() => this.removeStation(idx)}>
-                    <DeleteIcon />
-                </IconButton>
-                </td>
-            </tr>)
+            this.st_list.push(
+                <MenuItem selected={idx === this.state.selectedIndex} 
+                onClick={(e) => this.selectStation(idx)}>{stations[idx].name}</MenuItem>)
         }
         return (
-            <div>
-                <Button variant="outlined" onClick={this.addStation}>駅追加</Button>
-                <table>
-                    {this.st_list}
-                </table>
+            <div className="split">
+                <div className="split-left">
+                    <Button variant="outlined" onClick={this.addStation}>駅追加</Button>
+                    <Button variant="outlined" onClick={this.removeStation}>駅削除</Button>
+                    <MenuList>
+                        {this.st_list}
+                    </MenuList>
+                    
+                </div>
+                <div className="split-right">
+                    <TextField label={"駅名"} 
+                    value={stations[this.state.selectedIndex].name} onChange={this.changeStaName}/>
+                    <RadioGroup aria-label="駅名の向き" name="textOrientation">
+                        <FormControlLabel value="female" control={<Radio />} label="縦書き" />
+                        <FormControlLabel value="male" control={<Radio />} label="横書き" />
+                    </RadioGroup>
+                </div>
             </div>
         );
     }
 }
+
+/*
+<RadioGroup aria-label="駅名の向き" name="textOrientation" value={value} onChange={handleChange}>
+                        <FormControlLabel value="female" control={<Radio />} label="縦書き" />
+                        <FormControlLabel value="male" control={<Radio />} label="横書き" />
+                    </RadioGroup>
+*/
 
 export default StationPane;

@@ -25,9 +25,11 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const [state, setState] = useState(routeMap);
+  const [count, setCount] = useState(0);
 
   const updateView = (rMap) => {
     setState(rMap);
+    setCount(count + 1); // これを入れるとなぜか画面が更新される
   };
   return (
    <div>
@@ -46,10 +48,10 @@ function App() {
         <Paper className={classes.paper}>Left</Paper>
       </div>
       <div className="split-svg">
-        <SvgPane routeMap={routeMap}  />
+        <SvgPane routeMap={state}  />
       </div>
       <div className="split-right">
-        <PropPane routeMap={routeMap} updateView={updateView.bind(this)}/>
+        <PropPane routeMap={state} updateView={updateView.bind(this)}/>
       </div>
     </div>
    </div>
