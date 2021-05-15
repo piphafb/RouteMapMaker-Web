@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+package.json
+
 # testing
 /coverage
 
