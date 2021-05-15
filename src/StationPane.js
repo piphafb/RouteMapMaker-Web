@@ -1,5 +1,11 @@
 import { Button, RadioGroup, Radio, MenuItem, MenuList, TextField, FormControlLabel} from '@material-ui/core';
 import React from 'react';
+import {
+	CircularInput,
+	CircularTrack,
+	CircularProgress,
+	CircularThumb
+} from 'react-circular-input'
 import './StationPane.css';
 
 class StationPane extends React.Component {
@@ -54,10 +60,19 @@ class StationPane extends React.Component {
                 <div className="split-right">
                     <TextField label={"駅名"} 
                     value={stations[this.state.selectedIndex].name} onChange={this.changeStaName}/>
-                    <RadioGroup aria-label="駅名の向き" name="textOrientation">
-                        <FormControlLabel value="female" control={<Radio />} label="縦書き" />
-                        <FormControlLabel value="male" control={<Radio />} label="横書き" />
-                    </RadioGroup>
+                    <div className="prop-margin">
+                    駅名の向き
+                        <RadioGroup row aria-label="駅名の向き" name="textOrientation">
+                            <FormControlLabel value="female" control={<Radio />} label="縦書き" />
+                            <FormControlLabel value="male" control={<Radio />} label="横書き" />
+                        </RadioGroup>
+                    </div>
+                    <CircularInput className="circle-input">
+	        		    <CircularTrack />
+    	    		    <CircularProgress />
+        			    <CircularThumb />
+            		</CircularInput>
+                    <TextField label="駅名の角度" defaultValue="0" />
                 </div>
             </div>
         );
