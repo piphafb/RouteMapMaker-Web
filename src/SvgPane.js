@@ -6,7 +6,7 @@ class SvgPane extends React.Component {
         super(props);
         this.state = {isMouseDown: false};
         this.svgRef = React.createRef();
-        this.ratio = 2;
+        this.ratio = 10;
     }
 
     onMouseDown = (e) => {
@@ -26,8 +26,8 @@ class SvgPane extends React.Component {
         }
         let id = e.target.id;
         const svgRect = this.svgRef.current.getBoundingClientRect();
-        const relativeX = (e.pageX - svgRect.left)/this.ratio;
-        const relativeY = (e.pageY - svgRect.top)/this.ratio;
+        const relativeX = (e.pageX - svgRect.left);
+        const relativeY = (e.pageY - svgRect.top);
         this.props.routeMap.stations[0].pos = [relativeX, relativeY];
         this.props.updateView(this.props.routeMap);
     };
@@ -41,17 +41,17 @@ class SvgPane extends React.Component {
             let x = (start[0]*(numOfSta-1-i) + end[0]*i)/(numOfSta-1);
             let y = (start[1]*(numOfSta-1-i) + end[1]*i)/(numOfSta-1);
             let station = this.props.routeMap.stations[i];
-            staPoints.push(<circle cx={x} cy={y} r="2" fill="black" id={"c"+i}
+            staPoints.push(<circle cx={x} cy={y} r="4" fill="black" id={"c"+i}
                 onMouseDown={this.onMouseDown} />);
-            staPoints.push(<text x={x} y={y+5} writing-mode={station.writingMode} font-size="8" id={"n"+i}>
+            staPoints.push(<text x={x} y={y+5} writing-mode={station.writingMode} font-size="16" id={"n"+i}>
                 {station.name}</text>);
         }
         const pathD = "M " + start[0] + " " + start[1] + " L " + end[0] + " " + end[1];
         return (
             <div>
-                <svg width={100*this.ratio} height={100*this.ratio} viewBox="0 0 100 100" 
+                <svg width={100*this.ratio} height={100*this.ratio} viewBox="0 0 1000 1000" 
                     ref={this.svgRef} onMouseUp={this.onMouseUp} onMouseMove={this.onMouseMove}>
-                    <path d={pathD} stroke="black" />
+                    <path d={pathD} stroke="black" stroke-width="2" />
                     {staPoints}
                 </svg>
             </div>

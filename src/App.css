@@ -35,20 +35,26 @@
 .split-left{
   display: table-cell;
   padding: 0px;
-  width: 20%;
+  width: 10%;
   vertical-align:top;
 }
 .split-svg{
   display: table-cell;
   padding: 0px;
   width: 60%;
+  max-width: 600px;
   vertical-align:top;
+  overflow: scroll;
 }
 .split-right{
   display: table-cell;
   padding: 0px;
-  width: 20%;
+  width: 30%;
   vertical-align:top;
+}
+.svg-inside{
+  width: 1000px;
+  height: 1000px;
 }
 
 @keyframes App-logo-spin {

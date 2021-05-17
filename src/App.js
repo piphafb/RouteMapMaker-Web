@@ -48,7 +48,9 @@ function App() {
         <Paper className={classes.paper}>Left</Paper>
       </div>
       <div className="split-svg">
-        <SvgPane routeMap={state} updateView={updateView.bind(this)}/>
+        <div className="svg-inside">
+          <SvgPane routeMap={state} updateView={updateView.bind(this)}/>
+        </div>
       </div>
       <div className="split-right">
         <PropPane routeMap={state} updateView={updateView.bind(this)}/>
