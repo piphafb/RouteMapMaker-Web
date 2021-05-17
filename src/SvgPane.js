@@ -4,7 +4,7 @@ import React from 'react';
 class SvgPane extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {routeMap: this.props.routeMap, isMouseDown: false};
+        this.state = {isMouseDown: false};
         this.svgRef = React.createRef();
         this.ratio = 2;
     }
@@ -28,19 +28,19 @@ class SvgPane extends React.Component {
         const svgRect = this.svgRef.current.getBoundingClientRect();
         const relativeX = (e.pageX - svgRect.left)/this.ratio;
         const relativeY = (e.pageY - svgRect.top)/this.ratio;
-        this.state.routeMap.stations[0].pos = [relativeX, relativeY];
-        this.setState({routeMap: this.state.routeMap});
+        this.props.routeMap.stations[0].pos = [relativeX, relativeY];
+        this.props.updateView(this.props.routeMap);
     };
 
     render() {
         var staPoints = [];
-        let start = this.state.routeMap.stations[0].pos;
-        let end = this.state.routeMap.stations.slice(-1)[0].pos;
-        let numOfSta = this.state.routeMap.stations.length;
+        let start = this.props.routeMap.stations[0].pos;
+        let end = this.props.routeMap.stations.slice(-1)[0].pos;
+        let numOfSta = this.props.routeMap.stations.length;
         for(let i=0; i<numOfSta; i++) {
             let x = (start[0]*(numOfSta-1-i) + end[0]*i)/(numOfSta-1);
             let y = (start[1]*(numOfSta-1-i) + end[1]*i)/(numOfSta-1);
-            let station = this.state.routeMap.stations[i];
+            let station = this.props.routeMap.stations[i];
             staPoints.push(<circle cx={x} cy={y} r="2" fill="black" id={"c"+i}
                 onMouseDown={this.onMouseDown} />);
             staPoints.push(<text x={x} y={y+5} writing-mode={station.writingMode} font-size="8" id={"n"+i}>
