@@ -12,26 +12,23 @@ class StationPane extends React.Component {
     st_list = [];
     constructor(props) {
         super(props);
-        this.state = {routeMap: this.props.routeMap, selectedIndex: 0};
+        this.state = {selectedIndex: 0};
     }
 
     addStation = event => {
-        this.state.routeMap.stations.splice(-1, 0, {name: "新駅"});
-        this.setState({routeMap: this.state.routeMap});
-        this.props.updateView(this.state.routeMap);
+        this.props.routeMap.stations.splice(-1, 0, {name: "新駅"});
+        this.props.updateView(this.props.routeMap);
     };
 
     removeStation = event => {
-        this.state.routeMap.stations.splice(this.state.selectedIndex,1);
-        this.setState({routeMap: this.state.routeMap});
-        this.props.updateView(this.state.routeMap);
+        this.props.routeMap.stations.splice(this.state.selectedIndex,1);
+        this.props.updateView(this.props.routeMap);
     };
 
     changeStaName = event => {
         let idx = this.state.selectedIndex
-        this.state.routeMap.stations[idx].name = event.target.value;
-        this.setState({routeMap: this.state.routeMap});
-        this.props.updateView(this.state.routeMap);
+        this.props.routeMap.stations[idx].name = event.target.value;
+        this.props.updateView(this.props.routeMap);
     };
 
     selectStation = idx => {
@@ -40,15 +37,13 @@ class StationPane extends React.Component {
 
     setNameOrientation = event => {
         let idx = this.state.selectedIndex;
-        this.state.routeMap.stations[idx].tate = (event.target.value=="tate" ? "tb" : "lr");
-        this.setState({routeMap: this.state.routeMap});
-        console.log(this.state.routeMap.stations[idx].tate);
-        this.props.updateView(this.state.routeMap);
+        this.props.routeMap.stations[idx].writingMode = (event.target.value=="tate" ? "tb" : "lr");
+        this.props.updateView(this.props.routeMap);
     }
 
 
     render() {
-        var stations = this.state.routeMap.stations;
+        var stations = this.props.routeMap.stations;
         this.st_list.splice(0);
         for(let idx=0; idx<stations.length; idx++) {
             this.st_list.push(
