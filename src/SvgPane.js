@@ -40,10 +40,11 @@ class SvgPane extends React.Component {
         for(let i=0; i<numOfSta; i++) {
             let x = (start[0]*(numOfSta-1-i) + end[0]*i)/(numOfSta-1);
             let y = (start[1]*(numOfSta-1-i) + end[1]*i)/(numOfSta-1);
+            let station = this.state.routeMap.stations[i];
             staPoints.push(<circle cx={x} cy={y} r="2" fill="black" id={"c"+i}
                 onMouseDown={this.onMouseDown} />);
-            staPoints.push(<text x={x} y={y+5} writing-mode="tb" font-size="8" id={"n"+i}>
-                {this.state.routeMap.stations[i].name}</text>);
+            staPoints.push(<text x={x} y={y+5} writing-mode={station.writingMode} font-size="8" id={"n"+i}>
+                {station.name}</text>);
         }
         const pathD = "M " + start[0] + " " + start[1] + " L " + end[0] + " " + end[1];
         return (

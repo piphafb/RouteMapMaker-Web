@@ -38,6 +38,14 @@ class StationPane extends React.Component {
         this.setState({selectedIndex: idx});
     }
 
+    setNameOrientation = event => {
+        let idx = this.state.selectedIndex;
+        this.state.routeMap.stations[idx].tate = (event.target.value=="tate" ? "tb" : "lr");
+        this.setState({routeMap: this.state.routeMap});
+        console.log(this.state.routeMap.stations[idx].tate);
+        this.props.updateView(this.state.routeMap);
+    }
+
 
     render() {
         var stations = this.state.routeMap.stations;
@@ -47,6 +55,8 @@ class StationPane extends React.Component {
                 <MenuItem selected={idx === this.state.selectedIndex} 
                 onClick={(e) => this.selectStation(idx)}>{stations[idx].name}</MenuItem>)
         }
+        let selectedStation = stations[this.state.selectedIndex];
+        console.log(selectedStation.writingMode)
         return (
             <div className="split">
                 <div className="split-left">
@@ -62,9 +72,11 @@ class StationPane extends React.Component {
                     value={stations[this.state.selectedIndex].name} onChange={this.changeStaName}/>
                     <div className="prop-margin">
                     駅名の向き
-                        <RadioGroup row aria-label="駅名の向き" name="textOrientation">
-                            <FormControlLabel value="female" control={<Radio />} label="縦書き" />
-                            <FormControlLabel value="male" control={<Radio />} label="横書き" />
+                        <RadioGroup row aria-label="駅名の向き" name="textOrientation"
+                            value={selectedStation.writingMode==="tb" ? "tate" : "yoko"}
+                            onChange={this.setNameOrientation}>
+                            <FormControlLabel value="tate" control={<Radio />} label="縦書き" />
+                            <FormControlLabel value="yoko" control={<Radio />} label="横書き" />
                         </RadioGroup>
                     </div>
                     <CircularInput className="circle-input">
