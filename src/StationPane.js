@@ -51,7 +51,6 @@ class StationPane extends React.Component {
                 onClick={(e) => this.selectStation(idx)}>{stations[idx].name}</MenuItem>)
         }
         let selectedStation = stations[this.state.selectedIndex];
-        console.log(selectedStation.writingMode)
         return (
             <div className="split">
                 <div className="split-left">
