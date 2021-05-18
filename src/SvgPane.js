@@ -17,8 +17,8 @@ function getStationPoints(stations) {
         let sP = stations[startIdx].pos;
         let eP = stations[endIdx].pos;
         for(let i=startIdx+1; i<=endIdx; i++) {
-            let x = (sP[0]*(endIdx-i) + eP[0]*i)/(endIdx-startIdx);
-            let y = (sP[1]*(endIdx-i) + eP[1]*i)/(endIdx-startIdx);
+            let x = (sP[0]*(endIdx-i) + eP[0]*(i-startIdx))/(endIdx-startIdx);
+            let y = (sP[1]*(endIdx-i) + eP[1]*(i-startIdx))/(endIdx-startIdx);
             points.push([x, y]);
         }
         startIdx = endIdx;
@@ -27,10 +27,15 @@ function getStationPoints(stations) {
     return points;
 }
 
-function getPathString(points) {
-    let str = "M " + points[0][0] + " " + points[0][1];
-    for(let i=0; i<points.length; i++) {
-        str += " L " + points[i][0] + " " + points[i][1];
+function getPathString(stations) {
+    // 固定点だけを抽出して構成する。
+    let str = "M " + stations[0].pos[0] + " " + stations[0].pos[1];
+    let idx = 1;
+    for(let idx=1; idx<stations.length; idx+=1) {
+        if(!stations[idx].pos) {
+            continue; // 中継点
+        }
+        str += " L " + stations[idx].pos[0] + " " + stations[idx].pos[1];
     }
     return str;
 }
@@ -38,31 +43,31 @@ function getPathString(points) {
 class SvgPane extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {isMouseDown: false};
+        this.state = {isMouseDown: false, movingObjId: null};
         this.svgRef = React.createRef();
         this.ratio = 10;
     }
 
     onMouseDown = (e) => {
-        if(e.target.id!="c0") {
+        if(e.target.id[0]!='c') {
             return;
         }
-        this.setState({isMouseDown: true});
+        this.setState({isMouseDown: true, movingObjId: e.target.id});
     };
 
     onMouseUp = (e) => {
-        this.setState({isMouseDown: false});
+        this.setState({isMouseDown: false, movingObjId: null});
     };
 
     onMouseMove = (e) => {
-        if(!this.state.isMouseDown) {
+        if(!this.state.isMouseDown || this.state.movingObjId==null) {
             return;
         }
-        let id = e.target.id;
+        const idx = parseInt(this.state.movingObjId.slice(1));
         const svgRect = this.svgRef.current.getBoundingClientRect();
         const relativeX = (e.pageX - svgRect.left);
         const relativeY = (e.pageY - svgRect.top);
-        this.props.routeMap.stations[0].pos = [relativeX, relativeY];
+        this.props.routeMap.stations[idx].pos = [relativeX, relativeY];
         this.props.updateView(this.props.routeMap);
     };
 
@@ -84,7 +89,8 @@ class SvgPane extends React.Component {
             <div>
                 <svg width={100*this.ratio} height={100*this.ratio} viewBox="0 0 1000 1000" 
                     ref={this.svgRef} onMouseUp={this.onMouseUp} onMouseMove={this.onMouseMove}>
-                    <path d={getPathString(stationPoints)} stroke="black" stroke-width="2" />
+                    <path d={getPathString(this.props.routeMap.stations)} 
+                    fill="transparent" stroke="black" stroke-width="2" />
                     {staPoints}
                 </svg>
             </div>
