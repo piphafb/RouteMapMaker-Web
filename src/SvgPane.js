@@ -71,6 +71,22 @@ class SvgPane extends React.Component {
         this.props.updateView(this.props.routeMap);
     };
 
+    onContextMenu = (event) => {
+        if(event.target.id[0]!='c') {
+            return;
+        }
+        const idx = parseInt(event.target.id.slice(1));
+        if(idx==0 || idx==this.props.routeMap.stations.length-1) {
+            // 端の駅の座標を削除してはいけない。
+            return;
+        }
+        if("pos" in this.props.routeMap.stations[idx]) {
+            event.preventDefault();
+            delete this.props.routeMap.stations[idx].pos;
+            this.props.updateView(this.props.routeMap);
+        }
+    }
+
     render() {
         var staPoints = [];
         let start = this.props.routeMap.stations[0].pos;
@@ -81,7 +97,7 @@ class SvgPane extends React.Component {
             let [x, y] = stationPoints[i];
             let station = this.props.routeMap.stations[i];
             staPoints.push(<circle cx={x} cy={y} r="4" fill="black" id={"c"+i}
-                onMouseDown={this.onMouseDown} />);
+                onMouseDown={this.onMouseDown} onContextMenu={this.onContextMenu}/>);
             staPoints.push(<text x={x} y={y+5} writing-mode={station.writingMode} font-size="16" id={"n"+i}>
                 {station.name}</text>);
         }
