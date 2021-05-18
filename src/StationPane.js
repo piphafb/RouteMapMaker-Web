@@ -16,7 +16,10 @@ class StationPane extends React.Component {
     }
 
     addStation = event => {
-        this.props.routeMap.stations.splice(-1, 0, {name: "新駅"});
+        this.props.routeMap.stations.splice(-1, 0, {
+            name: "新駅",
+            writingMode: "tb",
+        });
         this.props.updateView(this.props.routeMap);
     };
 
