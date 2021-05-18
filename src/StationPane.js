@@ -24,7 +24,12 @@ class StationPane extends React.Component {
     };
 
     removeStation = event => {
-        this.props.routeMap.stations.splice(this.state.selectedIndex,1);
+        const idx = this.state.selectedIndex;
+        if(idx==0 || idx==this.props.routeMap.stations.length-1) {
+            alert("端の駅は削除できません");
+            return;
+        }
+        this.props.routeMap.stations.splice(idx,1);
         this.props.updateView(this.props.routeMap);
     };
 
