@@ -5,6 +5,8 @@ import {AppBar, Tabs, Tab} from '@material-ui/core/';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import StationPane from './StationPane';
+import TrainPane from './TrainPane';
+import TrainStopPane from './TrainStopPane'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -60,17 +62,17 @@ export default function SimpleTabs(props) {
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="駅" {...a11yProps(0)} />
                     <Tab label="運転系統" {...a11yProps(1)} />
-                    <Tab label="停車駅" {...a11yProps(2)} disabled />
+                    <Tab label="停車駅" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
                 <StationPane routeMap={props.routeMap} updateView={props.updateView}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <TrainPane routeMap={props.routeMap} updateView={props.updateView}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                <TrainStopPane routeMap={props.routeMap} updateView={props.updateView}/>
             </TabPanel>
         </div>
     );

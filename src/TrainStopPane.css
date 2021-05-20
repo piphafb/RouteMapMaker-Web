@@ -1,0 +1,27 @@
+
+.split{
+  display: table;
+  width: 100%;    
+}
+.split-left{
+  display: table-cell;
+  padding: 0px;
+  width: 40%;
+  vertical-align:top;
+}
+.split-right{
+  display: table-cell;
+  padding: 0px;
+  width: 60%;
+  vertical-align:top;
+}
+
+.circle-input{
+  width: 25%;
+  height: 25%;
+  margin: 20px;
+}
+
+.prop-margin{
+  margin: 20px 0px;
+}
