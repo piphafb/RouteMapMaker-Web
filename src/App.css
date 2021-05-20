@@ -50,6 +50,7 @@
   display: table-cell;
   padding: 0px;
   width: 30%;
+  min-width: 300px;
   vertical-align:top;
 }
 .svg-inside{
