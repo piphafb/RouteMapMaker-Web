@@ -14,7 +14,7 @@ let trains = [{
         {stationId: "DTmW0q1DsR0X+iZ879AGD5Ro"},
     ],
     strokeWidth: 2,
-    strokeColor: 0,
+    strokeColor: "#000000",
     pointSize: 10,
     pointStrokeColor: 0,
     pointFillColor: 0,
