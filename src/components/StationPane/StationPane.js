@@ -1,4 +1,4 @@
-import { RadioGroup, Radio, MenuItem, MenuList, TextField, FormControlLabel } from '@material-ui/core';
+import { RadioGroup, Radio, TextField, FormControlLabel } from '@material-ui/core';
 import React from 'react';
 import {
   CircularInput,
@@ -6,20 +6,16 @@ import {
   CircularProgress,
   CircularThumb
 } from 'react-circular-input'
+import './StationPane.css';
 import AddStationButton from './AddStationButton';
 import RemoveStationButton from './RemoveStationButton';
 import StationNameInput from './StationNameInput';
-import './StationPane.css';
+import StationSelector from './StationSelector';
 
 class StationPane extends React.Component {
-  st_list = [];
   constructor(props) {
     super(props);
     this.state = { selectedIndex: 0 };
-  }
-
-  selectStation = idx => {
-    this.setState({ selectedIndex: idx });
   }
 
   setNameOrientation = event => {
@@ -30,27 +26,19 @@ class StationPane extends React.Component {
 
   render() {
     var stations = this.props.routeMap.stations;
-    this.st_list.splice(0);
-    for (let idx = 0; idx < stations.length; idx++) {
-      this.st_list.push(
-        <MenuItem selected={idx === this.state.selectedIndex}
-          onClick={(e) => this.selectStation(idx)}>{stations[idx].name}</MenuItem>)
-    }
     let selectedStation = stations[this.state.selectedIndex];
     let params = {
       routeMap: this.props.routeMap,
       updateView: this.props.updateView,
-      selectedIndex: this.state.selectedIndex
+      selectedIndex: this.state.selectedIndex,
+      setSelectedIndex: ((i) => {this.setState({selectedIndex: i})})
     }
     return (
       <div className="split">
         <div className="split-left">
           <AddStationButton {...params} />
           <RemoveStationButton {...params} />
-          <MenuList>
-            {this.st_list}
-          </MenuList>
-
+          <StationSelector {...params}/>
         </div>
         <div className="split-right">
           <StationNameInput {...params} />
