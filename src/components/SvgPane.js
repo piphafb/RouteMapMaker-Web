@@ -30,7 +30,6 @@ function getStationPoints(stations) {
 function getPathString(stations) {
     // 固定点だけを抽出して構成する。
     let str = "M " + stations[0].pos[0] + " " + stations[0].pos[1];
-    let idx = 1;
     for(let idx=1; idx<stations.length; idx+=1) {
         if(!stations[idx].pos) {
             continue; // 中継点
@@ -49,7 +48,7 @@ class SvgPane extends React.Component {
     }
 
     onMouseDown = (e) => {
-        if(e.target.id[0]!='c') {
+        if(e.target.id[0]!=='c') {
             return;
         }
         this.setState({isMouseDown: true, movingObjId: e.target.id});
@@ -72,11 +71,11 @@ class SvgPane extends React.Component {
     };
 
     onContextMenu = (event) => {
-        if(event.target.id[0]!='c') {
+        if(event.target.id[0]!=='c') {
             return;
         }
         const idx = parseInt(event.target.id.slice(1));
-        if(idx==0 || idx==this.props.routeMap.stations.length-1) {
+        if(idx===0 || idx===this.props.routeMap.stations.length-1) {
             // 端の駅の座標を削除してはいけない。
             return;
         }
@@ -89,8 +88,6 @@ class SvgPane extends React.Component {
 
     render() {
         var staPoints = [];
-        let start = this.props.routeMap.stations[0].pos;
-        let end = this.props.routeMap.stations.slice(-1)[0].pos;
         let numOfSta = this.props.routeMap.stations.length;
         let stationPoints = getStationPoints(this.props.routeMap.stations);
         for(let i=0; i<numOfSta; i++) {
