@@ -11,6 +11,7 @@ import AddStationButton from './AddStationButton';
 import RemoveStationButton from './RemoveStationButton';
 import StationNameInput from './StationNameInput';
 import StationSelector from './StationSelector';
+import TextDirectionSelector from './TextDirectionSelector';
 
 class StationPane extends React.Component {
   constructor(props) {
@@ -44,12 +45,7 @@ class StationPane extends React.Component {
           <StationNameInput {...params} />
           <div className="prop-margin">
             駅名の向き
-                        <RadioGroup row aria-label="駅名の向き" name="textOrientation"
-              value={selectedStation.writingMode === "tb" ? "tate" : "yoko"}
-              onChange={this.setNameOrientation}>
-              <FormControlLabel value="tate" control={<Radio />} label="縦書き" />
-              <FormControlLabel value="yoko" control={<Radio />} label="横書き" />
-            </RadioGroup>
+            <TextDirectionSelector {...params} />
           </div>
           <CircularInput className="circle-input">
             <CircularTrack />
