@@ -3,6 +3,7 @@ import './TrainPane.css';
 import AddTrainButton from './AddTrainButton'
 import TrainSelector from './TrainSelector'
 import RemoveTrainButton from './RemoveTrainButton';
+import TrainNameInput from './TrainNameInput';
 
 let TrainPane = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -20,6 +21,7 @@ let TrainPane = (props) => {
         <TrainSelector {...params} />
       </div>
       <div className="split-right">
+        <TrainNameInput {...params} />
       </div>
     </div>
   );
