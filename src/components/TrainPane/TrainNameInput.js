@@ -1,9 +1,9 @@
 import TextField from '@material-ui/core/TextField';
 
-let TrainNameInput = (props) => {
+const TrainNameInput = (props) => {
   // 系統名を変更するロジック
-  let changeTrainName = event => {
-    let idx = props.selectedIndex
+  const changeTrainName = event => {
+    const idx = props.selectedIndex
     props.routeMap.trains[idx].name = event.target.value;
     props.updateView(props.routeMap);
   };

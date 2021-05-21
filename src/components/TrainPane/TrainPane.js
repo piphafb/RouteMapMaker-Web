@@ -6,9 +6,9 @@ import RemoveTrainButton from './RemoveTrainButton';
 import TrainNameInput from './TrainNameInput';
 import LineColorInput from './LineColorInput';
 
-let TrainPane = (props) => {
+const TrainPane = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  let params = {
+  const params = {
     routeMap: props.routeMap,
     updateView: props.updateView,
     selectedIndex: selectedIndex,

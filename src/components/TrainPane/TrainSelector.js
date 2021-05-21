@@ -1,7 +1,7 @@
 import { MenuItem, MenuList } from '@material-ui/core';
 
-let TrainSelector = (props) => {
-  let listItems = props.routeMap.trains.map((train, idx) => {
+const TrainSelector = (props) => {
+  const listItems = props.routeMap.trains.map((train, idx) => {
     return (
       <MenuItem
         selected={idx === props.selectedIndex}

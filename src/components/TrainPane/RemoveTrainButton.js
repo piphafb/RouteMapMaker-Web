@@ -1,8 +1,8 @@
 import { Button } from "grommet";
 
-let RemoveTrainButton = (props) => {
+const RemoveTrainButton = (props) => {
   // 系統を追加するロジック
-  let removeTrain = event => {
+  const removeTrain = event => {
     if(props.routeMap.trains.length === 1) {
       alert("運転系統は1つ以上必要です");
       return;
