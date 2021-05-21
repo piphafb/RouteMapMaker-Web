@@ -12,7 +12,6 @@ let StationSelector = (props) => {
       </MenuItem>
     );
   });
-  console.log(listItems[1]);
   return (
     <MenuList>
       {listItems}
