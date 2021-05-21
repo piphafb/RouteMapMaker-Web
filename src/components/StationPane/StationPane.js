@@ -1,17 +1,11 @@
-import { TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import {
-  CircularInput,
-  CircularTrack,
-  CircularProgress,
-  CircularThumb
-} from 'react-circular-input'
 import './StationPane.css';
 import AddStationButton from './AddStationButton';
 import RemoveStationButton from './RemoveStationButton';
 import StationNameInput from './StationNameInput';
 import StationSelector from './StationSelector';
 import TextDirectionSelector from './TextDirectionSelector';
+import TextAngleInput from './TextAngleInput';
 
 let StationPane = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -34,12 +28,7 @@ let StationPane = (props) => {
           駅名の向き
           <TextDirectionSelector {...params} />
         </div>
-        <CircularInput className="circle-input">
-          <CircularTrack />
-          <CircularProgress />
-          <CircularThumb />
-        </CircularInput>
-        <TextField label="駅名の角度" defaultValue="0" />
+        <TextAngleInput {...params} />
       </div>
     </div>
   );
