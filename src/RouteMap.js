@@ -15,6 +15,7 @@ let trains = [{
     ],
     strokeWidth: 2,
     strokeColor: "#000000",
+    lineOffset: 0,
     pointSize: 10,
     pointStrokeColor: 0,
     pointFillColor: 0,
@@ -28,7 +29,7 @@ routeMap = {stations: [station], trains: [train]};
 station = {
     id: String,
     name: string,
-    pos: [x(int), y(int)],
+    pos: [x(int), y(int)], // 座標固定点のみ
     writingMode: "tb" or "lr" or "rl",
 }
 

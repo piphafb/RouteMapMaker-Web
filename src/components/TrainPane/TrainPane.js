@@ -6,6 +6,7 @@ import RemoveTrainButton from './RemoveTrainButton';
 import TrainNameInput from './TrainNameInput';
 import LineColorInput from './LineColorInput';
 import LineWidthInput from './LineWidthInput';
+import LineOffsetInput from './LineOffsetInput';
 
 const TrainPane = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -26,6 +27,7 @@ const TrainPane = (props) => {
         <TrainNameInput {...params} />
         <LineColorInput {...params} />
         <LineWidthInput {...params} />
+        <LineOffsetInput {...params} />
       </div>
     </div>
   );
