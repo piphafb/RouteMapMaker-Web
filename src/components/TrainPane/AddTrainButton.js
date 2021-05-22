@@ -11,6 +11,12 @@ const AddTrainButton = (props) => {
     props.routeMap.trains.splice(insertIdx, 0, {
       id: getRandomStr(),
       name: `新しい運転系統`,
+      strokeWidth: 2,
+      strokeColor: "#000000",
+      lineOffset: 0,
+      pointSize: 10,
+      pointStrokeColor: 0,
+      pointFillColor: 0,
     });
     props.updateView(props.routeMap);
   };
