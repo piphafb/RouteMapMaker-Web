@@ -10,7 +10,7 @@ const LineOffsetInput = (props) => {
       props.updateView(props.routeMap);
     }
   };
-  console.log(selectedTrain.name);
+  
   return (
     <Box direction="row">
       <Text>ライン位置</Text>
